@@ -1,0 +1,15 @@
+- name: Exemple 5
+  hosts: slaves
+  tasks:
+  - name: Demo module command 1
+    command: pwd
+  
+  #- name: Demo module command 2
+  #  command: mkdir demo # dossier créé dans /home/akka
+
+  - name: Demo module command 3
+    command: echo coucou > hello.txt # la redirection est ignorée par ce module
+  
+  - name: Demo module shell
+    shell: echo coucou >> hello.txt # la redirection est prise en compte par ce module
+

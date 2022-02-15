@@ -1,8 +1,14 @@
 - name: Exemple 3
-  hosts: s1
+  hosts: slaves
   become: yes # devenir root (sudo su)
   tasks:
-  - name: Demo module apt
+  - name: Demo module apt 1
     apt:
       name: apache2 # sudo apt install -y apache2
-      state: present # option par défaut
+      state: present # option par défaut. L'option absent => désinstalle (equivalent de apt remove)
+  
+  - name: Demo module apt 2
+    apt:
+      name: mariadb-server
+      update_cache: yes
+      state: present

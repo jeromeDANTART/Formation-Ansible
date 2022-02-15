@@ -1,5 +1,5 @@
-s1 ansible_host=192.168.0.33 ansible_user=akka ansible_ssh_pass=akka
-s2 ansible_host=192.168.0.35 ansible_user=akka ansible_ssh_pass=akka
+s1 ansible_host=192.168.0.33 ansible_user=akka ansible_ssh_pass=akka ansible_sudo_pass=akka
+s2 ansible_host=192.168.0.35 ansible_user=akka ansible_ssh_pass=akka ansible_sudo_pass=akka
 
 [slaves]
 s1

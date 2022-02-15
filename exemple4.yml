@@ -1,0 +1,8 @@
+- name: Exemple 4
+  hosts: slaves
+  become: yes # l'arrêt/démarrage de service requiert des permissions élevées
+  tasks:
+  - name: Demo module service
+    service:
+      name: mariadb # nom du service (différent du nom du package: mariadb-server)
+      state: started

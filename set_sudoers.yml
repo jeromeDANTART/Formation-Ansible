@@ -1,8 +1,10 @@
-- name: xxx
-  hosts: s1
+# Ce playbook sert à retirer la demande de password du système
+# lorsqu'un utilisateur souhaite une exécuter une commande en sudo
+- name: Set Sudoers
+  hosts: all
   become: yes
   tasks:
-  - name: xxx
+  - name: Modifie le fichier sudoers
     lineinfile:
       path: /etc/sudoers
       regexp: '^%sudo'

@@ -1,0 +1,11 @@
+- name: Exemple6
+  hosts: slaves
+  tasks:
+
+    # cette tâche git clone le dépôt public indiqué
+    # aprè exécution un dépôt local nommé "demo-repo"
+    # apparaît chez les machines slaves
+    - name: Demo module git
+      git:
+        repo: 'https://github.com/cdufour/akka-demo-jenkins.git'
+        dest: /home/akka/demo-repo
