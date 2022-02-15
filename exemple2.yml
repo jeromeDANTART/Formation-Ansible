@@ -1,0 +1,13 @@
+- name: Exemple 2
+  hosts: all
+  tasks:
+  - name: Demo module file 1
+    file:
+      path: /tmp/hello.txt
+      mode: '0777'
+  
+  - name: Demo module file 2
+    file:
+      path: /tmp/myfolder
+      mode: '0744'
+      state: directory

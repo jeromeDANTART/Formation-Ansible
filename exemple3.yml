@@ -1,0 +1,8 @@
+- name: Exemple 3
+  hosts: s1
+  become: yes # devenir root (sudo su)
+  tasks:
+  - name: Demo module apt
+    apt:
+      name: apache2 # sudo apt install -y apache2
+      state: present # option par défaut
