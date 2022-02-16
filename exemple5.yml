@@ -1,15 +1,41 @@
 - name: Exemple 5
   hosts: slaves
+  gather_facts: no
   tasks:
-  - name: Demo module command 1
-    command: pwd
+
+  - name: x1
+    command: ls -l
+    register: x1_out # enregistre le retour de commande
+
+  - debug: var=x1_out.stdout
+
+  - name: x2
+    shell: ls -l | wc -l
+    register: x2_out # enregistre le retour de commande
+
+  - debug: var=x2_out.stdout
+
+  - name: x3
+    #shell: mkdir toto
+    shell: pwd
+    register: x3_out
+
+  - debug:
+      #var: x3_out.stdout
+      msg: "Mon message perso: {{ x3_out.stdout }}"
+
+  - name: x4
+    shell: pwd
+
+
+
   
   #- name: Demo module command 2
   #  command: mkdir demo # dossier créé dans /home/akka
 
-  - name: Demo module command 3
-    command: echo coucou > hello.txt # la redirection est ignorée par ce module
+  # - name: Demo module command 3
+  #   command: echo coucou > hello.txt # la redirection est ignorée par ce module
   
-  - name: Demo module shell
-    shell: echo coucou >> hello.txt # la redirection est prise en compte par ce module
+  # - name: Demo module shell
+  #   shell: echo coucou >> hello.txt # la redirection est prise en compte par ce module
 

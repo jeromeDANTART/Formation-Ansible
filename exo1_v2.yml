@@ -27,4 +27,5 @@
     shell: cd nodeapp && npm install
   
   - name: run app.js (webserver)
-    shell: node nodeapp/app.js & # exécution en mode détaché
+    # exécution en mode détaché avec redirection du canal d'erreur (stderr) vers le fichier error.txt
+    shell: nohup node nodeapp/app.js 2>error.txt & 
