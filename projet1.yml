@@ -1,0 +1,45 @@
+- name: Projet 1
+  hosts: s1
+  become: yes
+  gather_facts: no
+
+  tasks:
+  
+  - name: Installe Apache + Mariadb + Php + Drivers
+    apt: name={{ item }} state=present
+    loop: ['apache2', 'mariadb-server', 'php', 'php-mysql', 'libapache2-mod-php']
+
+  - name: Démarre Apache et Mysql
+    service:
+      name: '{{ item }}'
+      state: started
+    loop: ['apache2', 'mariadb']
+
+  - name: Copie fichier index.php
+    copy:
+      src: files/index.php
+      dest: /var/www/html # documentRoot du serveur apache
+
+  - name: Statistiques du fichier index.html (en vue de vérifier son existence)
+    stat:
+      path: /var/www/html/index.html
+    register: stats_out 
+
+  - name: Sauvegarde de index.html si existe
+    copy:
+      remote_src: yes
+      src: /var/www/html/index.html
+      dest: /var/www/html/index.bak.html
+    when: stats_out.stat.exists
+
+  - name: Suppression de index.html
+    file:
+      path: /var/www/html/index.html
+      state: absent
+
+  - name: Création compte utilisateur (kaka)
+    user:
+      name: kaka
+      group: sudo
+      shell: /bin/bash
+      password: kaka

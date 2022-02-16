@@ -17,7 +17,7 @@
 
   - name: x3
     #shell: mkdir toto
-    shell: pwd
+    shell: pwd # sortie: /home/akka
     register: x3_out
 
   - debug:
@@ -25,7 +25,7 @@
       msg: "Mon message perso: {{ x3_out.stdout }}"
 
   - name: x4
-    shell: pwd
+    shell: echo {{ x3_out.stdout }} > x4.txt
 
 
 
