@@ -1,0 +1,30 @@
+- name: Exo1 version 2
+  hosts: s1
+  gather_facts: no # ignore l'étape de collecte d'infos des cibles
+  
+  tasks:
+  - name: install nodejs
+    become: yes
+    apt:
+      name: nodejs
+      update_cache: yes
+      state: present
+
+  - name: install npm
+    become: yes
+    apt:
+      name: npm
+      update_cache: yes
+      state: present
+  
+  - name: git clone repo
+    git:
+      repo: 'https://gitlab.com/cdufour1/nodeapp.git'
+      dest: /home/akka/nodeapp
+      force: yes
+
+  - name: install deps
+    shell: cd nodeapp && npm install
+  
+  - name: run app.js (webserver)
+    shell: node nodeapp/app.js & # exécution en mode détaché
