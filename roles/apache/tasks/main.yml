@@ -3,7 +3,13 @@
     name: apache2
     state: present
 
-- name: check service started (by {{ user }})
+- name: start apache
   service:
     name: apache2
     state: started
+
+- name: copy index.html
+  become: yes
+  copy:
+    src: files/index.html
+    dest: "{{ apache_docs }}"
