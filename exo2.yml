@@ -1,0 +1,39 @@
+- name: Exo2
+  hosts: s3
+  gather_facts: no
+  become: yes
+
+  # variables globales accessibles par les différentes tâches
+  vars:
+    user: ubuntu
+
+  tasks:
+  - name: Install docker
+    apt:
+      name: docker.io
+      update_cache: yes
+      state: present
+  
+  - name: Start docker
+    service:
+      name: docker
+      state: started
+
+  # option: ajout d'une tâche qui ajoute l'utilisateur akka au groupe docker
+  - name: add {{ user }} to docker group
+    user:
+      name: '{{ user }}'
+      group: docker
+      append: yes
+    
+  - name: Copy run apache script
+    copy:
+      src: files/run-apache.sh
+      dest: /home/{{ user }}
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      mode: '0755'
+
+  - name: Run script
+    shell: ./run-apache.sh
+      

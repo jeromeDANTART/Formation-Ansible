@@ -3,6 +3,11 @@
   become: yes
   gather_facts: no
 
+
+  # import de variables depuis fichier yaml
+  vars_files:
+  - user_password.yml
+
   tasks:
   
   - name: Installe Apache + Mariadb + Php + Drivers
@@ -37,9 +42,15 @@
       path: /var/www/html/index.html
       state: absent
 
+  # la clé kaka est une variable provenant de user_password.yml
   - name: Création compte utilisateur (kaka)
     user:
       name: kaka
       group: sudo
       shell: /bin/bash
-      password: kaka
+      password: "{{ kaka | password_hash('sha512') }}" 
+  
+  - name: Transmission clé rsa publique (kaka_rsa.pub)
+    authorized_key:
+      user: kaka
+      key: "{{ lookup('file', '~/.ssh/kaka_rsa.pub') }}"

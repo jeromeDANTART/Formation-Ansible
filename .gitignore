@@ -1,2 +1,3 @@
-_exo.yml
-test.yml
+*.test.yml
+*.test.*.yml
+*.pem

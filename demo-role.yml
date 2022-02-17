@@ -1,0 +1,6 @@
+- name: Demo role
+  hosts: s1
+  gather_facts: no
+
+  roles:
+  - apache # roles/apache/tasks/main.yml

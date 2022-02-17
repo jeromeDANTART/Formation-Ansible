@@ -1,0 +1,9 @@
+- name: install apache
+  apt:
+    name: apache2
+    state: present
+
+- name: check service started (by {{ user }})
+  service:
+    name: apache2
+    state: started

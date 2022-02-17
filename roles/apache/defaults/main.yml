@@ -1,0 +1,4 @@
+# ce fichier expose des variables à destination des tâches
+# exécutées par le rôle apache
+
+user: chris
